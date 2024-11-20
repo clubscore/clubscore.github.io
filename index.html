@@ -1,11 +1,16 @@
 <html>
     <head>
+        <!-- <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
         <script type="module">
-            // Import the functions you need from the SDKs you need
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
+            import firebase from "firebase/app";
+            // Required for side-effects
+            import "firebase/firestore";
+
+            import { initializeApps } from "firebase/app";
+            import { getFirestore } from "firebase/firestore";
             
             // Your web app's Firebase configuration
             // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -20,16 +25,17 @@
             };
             
             // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-            const db = app.firestore();
+            const app = initializeApps(firebaseConfig);
+            const db = getFirestore(app);
 
             db.collection("scores").get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     console.log(`${doc.gameSide1} => ${doc.data()}`);
                 });
             });
-        </script>
+
+        </script> -->
+        <script src="https://clubscore.github.io/scoreboard.js"></script>
         <script>
             alert("page loaded2");
         </script>
