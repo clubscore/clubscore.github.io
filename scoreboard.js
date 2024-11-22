@@ -38,7 +38,7 @@ getDoc(doc(db, "scores", "GSh0R9fAcLdFKgPuYR0S")).then(testDoc=>{
 
 function getDataFromDbs()
 {
-    alert('test');
+    console.log("method was called");
 }
 
 // db.collection("scores").get().then((querySnapshot) => {
