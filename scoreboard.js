@@ -5,7 +5,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebas
 
 // // Add Firebase products that you want to use
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
+import { getFirestore, getDoc, doc } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
 
 const firebaseConfig = {
     apiKey: "AIzaSyCK12gxCeAc4RQDchWedaZGX5wMXRJKAuQ",
@@ -17,17 +17,35 @@ const firebaseConfig = {
     measurementId: "G-BJTG3WZMSC"
 };
 
-// Initialize Firebase - test
+// debugger;
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 console.log(app.name);
 const db = getFirestore(app);
 console.log(db);
 
-db.collection("scores").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(`${doc.gameSide1} => ${doc.data()}`);
-    });
-});
+getDoc(doc(db, "scores", "GSh0R9fAcLdFKgPuYR0S")).then(testDoc=>{
+    if(testDoc.exists())
+    {
+        console.log("document found");
+        console.log(testDoc.data());
+    }
+    else
+    {
+        console.log("document missing");
+    }
+})
+
+function getDataFromDbs()
+{
+    alert('test');
+}
+
+// db.collection("scores").get().then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//         console.log(`${doc.gameSide1} => ${doc.data()}`);
+//     });
+// });
 
 const message = () => {
     const name = "Jesse";
@@ -36,3 +54,6 @@ const message = () => {
   };
   
   export default message;
+  export {
+    getDataFromDbs
+  }

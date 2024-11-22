@@ -36,16 +36,31 @@
 
         </script> -->
         <!-- <script src="https://clubscore.github.io/scoreboard.js"></script> -->
-        <script type="module">
+        <!-- <script type="module">
             import message from './scoreboard.js';
             document.getElementById("demo").innerHTML = message();
+        </script> -->
+
+        <script type="module">
+            import getDataFromDbs from './scoreboard.js';
+            console.log("page loaded");
+
+            function getDataFromDb()
+            {
+                getDataFromDbs();
+            };
+
+            testButton.addEventListener('click', (e)=>{
+                getDataFromDb();
+            });
         </script>
         <script>
-            console.log("page loaded");
+
         </script>
     </head>
     <body>
         
     <p id="demo"></p>
+    <button id="testButton">check</button>
     </body>
 </html>
