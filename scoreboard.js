@@ -5,7 +5,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebas
 
 // // Add Firebase products that you want to use
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
-import { getFirestore, getDoc, doc } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
+import { getFirestore, getDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
 
 const firebaseConfig = {
     apiKey: "AIzaSyCK12gxCeAc4RQDchWedaZGX5wMXRJKAuQ",
@@ -41,11 +41,17 @@ function getDataFromDbs()
     console.log("method was called");
 }
 
-// db.collection("scores").get().then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//         console.log(`${doc.gameSide1} => ${doc.data()}`);
-//     });
-// });
+onSnapshot(doc(db, "scores", "GSh0R9fAcLdFKgPuYR0S"), 
+    testDoc =>     {
+        console.log("document updated");
+        console.log(testDoc.data());
+        console.log(testDoc.data()["gameScore"]["pointSide1"]);
+        var pointCell = document.getElementById("pointSide1");
+        pointCell.textContent=testDoc.data()["gameScore"]["pointSide1"];
+        var pointCell = document.getElementById("pointSide2");
+        pointCell.textContent=testDoc.data()["gameScore"]["pointSide2"];
+    }
+);
 
 const message = () => {
     const name = "Jesse";

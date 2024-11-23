@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+h1 {
+    color: #2c3e50;
+}
+.scoreboard {
+    margin: 20px auto;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.player {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.scores {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+.score-box {
+    flex: 1;
+}
+.current-game {
+    font-size: 1.5em;
+    color: #e74c3c;
+}
+.sets {
+    font-size: 1em;
+}
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #2980b9;
+}
