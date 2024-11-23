@@ -36,6 +36,22 @@ getDoc(doc(db, "scores", "GSh0R9fAcLdFKgPuYR0S")).then(testDoc=>{
     }
 })
 
+
+function getQueryStringParams() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+  
+    const params = {};
+    for (const [key, value] of urlParams.entries()) {
+      params[key] = value;
+    }
+  
+    return params;
+  }
+  
+  const queryParams = getQueryStringParams();
+  console.log(queryParams.id);
+
 function getDataFromDbs()
 {
     console.log("method was called");
@@ -52,6 +68,7 @@ onSnapshot(doc(db, "scores", "GSh0R9fAcLdFKgPuYR0S"),
         pointCell.textContent=testDoc.data()["gameScore"]["pointSide2"];
     }
 );
+
 
 const message = () => {
     const name = "Jesse";
