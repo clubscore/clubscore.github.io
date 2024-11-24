@@ -1,0 +1,12 @@
+
+getDoc(doc(db, "scores", "GSh0R9fAcLdFKgPuYR0S")).then(testDoc=>{
+    if(testDoc.exists())
+    {
+        console.log("document found");
+        console.log(testDoc.data());
+    }
+    else
+    {
+        console.log("document missing");
+    }
+})
