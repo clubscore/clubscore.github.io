@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
+    background-color: aqua;
 }
 h1 {
     color: #2c3e50;
@@ -14,6 +15,11 @@ h1 {
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.scoreboard tbody{
+    font-size: x-large;
+}
+
 .player {
     font-size: 1.2em;
     font-weight: bold;
