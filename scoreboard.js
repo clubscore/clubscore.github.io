@@ -7,15 +7,39 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebas
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
 import { getFirestore, getDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
 
+class TennisScoreKeys{
+    static pointSide1="p1";
+    static pointSide2="p2";
+    static gameSide1="g1";
+    static gameSide2="g2";
+    static setOverallSide1="s1";
+    static setOverallSide2="s2";
+    static prevGameSide1="pg1";
+    static prevGameSide2="pg2";
+    static tieBreakSide1="t1";
+    static tieBreakSide2="t2";
+    static isTieBreak="itb";
+}
+
+class TennisGameKeys {
+    static side1Player1Name = "1p1";
+    static side1Player2Name = "1p2";
+    static side2Player1Name = "2p1";
+    static side2Player2Name = "2p2";
+    static scoreId = "si";
+    static tennisGameType = "gt";
+}
+
 const firebaseConfig = {
-    apiKey: "AIzaSyCK12gxCeAc4RQDchWedaZGX5wMXRJKAuQ",
-    authDomain: "club-scorer.firebaseapp.com",
-    projectId: "club-scorer",
-    storageBucket: "club-scorer.firebasestorage.app",
-    messagingSenderId: "682053111618",
-    appId: "1:682053111618:web:c9917f5d454c79deb682db",
-    measurementId: "G-BJTG3WZMSC"
-};
+    apiKey: "AIzaSyDrzI_OoGe92fYQEFLZhXFlKXcrP_yIoeU",
+    authDomain: "game-scorer-skj.firebaseapp.com",
+    databaseURL: "https://game-scorer-skj-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "game-scorer-skj",
+    storageBucket: "game-scorer-skj.firebasestorage.app",
+    messagingSenderId: "720596141343",
+    appId: "1:720596141343:web:1ebc9f062c3577ddcc9c2a",
+    measurementId: "G-49863K56BS"
+  };
 
 var gameId;
 
@@ -61,7 +85,7 @@ function getDataFromDbs()
     console.log("method was called");
 }
 
-onSnapshot(doc(db, "scores", gameId), 
+onSnapshot(doc(db, "tennis_score", gameId), 
     testDoc =>     {
         if(testDoc.exists())
         {
@@ -90,15 +114,15 @@ const message = () => {
 
 function updateScore(testDoc) {
     var pointCell = document.getElementById("pointSide1");
-    pointCell.textContent = testDoc.data()["pointSide1"];
+    pointCell.textContent = testDoc.data()[TennisScoreKeys.pointSide1];
     var pointCell = document.getElementById("pointSide2");
-    pointCell.textContent = testDoc.data()["pointSide2"];
+    pointCell.textContent = testDoc.data()[TennisScoreKeys.pointSide2];
     clearPrevGameScores();
-    var prevGameSide1 = testDoc.data()["prevGameSide1"];
-    var prevGameSide2 = testDoc.data()["prevGameSide2"];
+    var prevGameSide1 = testDoc.data()[TennisScoreKeys.prevGameSide1];
+    var prevGameSide2 = testDoc.data()[TennisScoreKeys.prevGameSide1];
     
-    var gameSide1 = testDoc.data()["gameSide1"];
-    var gameSide2 = testDoc.data()["gameSide2"];
+    var gameSide1 = testDoc.data()[TennisScoreKeys.gameSide1];
+    var gameSide2 = testDoc.data()[TennisScoreKeys.gameSide2];
 
     updateGames(prevGameSide1, "playerNameSide1", gameSide1);
 
