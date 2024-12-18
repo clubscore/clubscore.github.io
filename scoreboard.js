@@ -162,12 +162,62 @@ async function retrieveGame()
     }
 }
 
+function isEmptyString(str) {
+    return !str;
+}
+
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
+
+function setViewerId()
+{
+    audienceId = localStorage.getItem("audienceIdentifier");
+    if(isEmptyString(audienceId))
+    {
+        var guid = uuidv4();
+        localStorage.setItem("audienceIdentifier", guid);
+        audienceId = localStorage.getItem("audienceIdentifier");
+    }
+
+    console.log("viewer id -"+audienceId);
+}
+
+async function getNumberOfViewers()
+{
+    // Create a reference to the specific document you want to retrieve
+    const docRef = doc(db, "tennis_game_viewers", "gEwRwB5xLgErYMCXkVgQ"); // Replace with your collection and document ID
+
+    try {
+        // Fetch the document snapshot
+        const docSnap = await getDoc(docRef);
+
+        // Check if the document exists
+        if (docSnap.exists()) {
+            var doc1=docSnap.data();
+            // Log the document data
+            console.log("Document data:", doc1);
+            // scoreId = doc1["si"];
+            // console.log("score id -"+scoreId);
+            // setScoreUpdates();
+        } else {
+            console.log("No such document!");
+        }
+    } catch (error) {
+        console.error("Error fetching document:", error);
+    }
+}
+
 var gameId;
 var scoreId;
+var audienceId;
 
 setGameId();
+setViewerId();
 // Initialize Firebase
 const db = connectDatabase();
-retrieveGame();
 
-// setScoreUpdates();
+getNumberOfViewers();
+retrieveGame();
