@@ -1,54 +1,8 @@
 <html>
     <head>
-        <!-- <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
-        <script type="module">
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
-            import firebase from "firebase/app";
-            // Required for side-effects
-            import "firebase/firestore";
-
-            import { initializeApps } from "firebase/app";
-            import { getFirestore } from "firebase/firestore";
-            
-            // Your web app's Firebase configuration
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-                apiKey: "AIzaSyCK12gxCeAc4RQDchWedaZGX5wMXRJKAuQ",
-                authDomain: "club-scorer.firebaseapp.com",
-                projectId: "club-scorer",
-                storageBucket: "club-scorer.firebasestorage.app",
-                messagingSenderId: "682053111618",
-                appId: "1:682053111618:web:c9917f5d454c79deb682db",
-                measurementId: "G-BJTG3WZMSC"
-            };
-            
-            // Initialize Firebase
-            const app = initializeApps(firebaseConfig);
-            const db = getFirestore(app);
-
-            db.collection("scores").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    console.log(`${doc.gameSide1} => ${doc.data()}`);
-                });
-            });
-
-        </script> -->
-        <!-- <script src="https://clubscore.github.io/scoreboard.js"></script> -->
-        <!-- <script type="module">
-            import message from './scoreboard.js';
-            document.getElementById("demo").innerHTML = message();
-        </script> -->
-        <script>
-            var testObj = {};
-        </script>
-        <script type="module">
-            import getDataFromDbs from './scoreboard.js';
-            console.log("page loaded");
-        </script>
-            <title>Tennis Scoreboard</title>
-            <link rel="stylesheet" href="style.css">
+        <script  type="module" src="https://clubscore.github.io/scoreboard.js"></script>
+        <title>Tennis Scoreboard</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1>Tennis Match Scoreboard</h1>
@@ -81,40 +35,5 @@
                 </tbody>
             </table>
         </div>
-
-        <script>
-            // Initialize scores
-            let player1GameScore = 0;
-            let player2GameScore = 0;
-            let player1Sets = 0;
-            let player2Sets = 0;
-    
-            // Function to simulate score updates
-            function updateScore() {
-                const randomWinner = Math.random() < 0.5 ? 1 : 2;
-                if (randomWinner === 1) {
-                    player1GameScore += 15;
-                } else {
-                    player2GameScore += 15;
-                }
-    
-                // Handle game and set logic
-                if (player1GameScore >= 40 && player1GameScore - player2GameScore >= 15) {
-                    player1Sets++;
-                    player1GameScore = 0;
-                    player2GameScore = 0;
-                } else if (player2GameScore >= 40 && player2GameScore - player1GameScore >= 15) {
-                    player2Sets++;
-                    player1GameScore = 0;
-                    player2GameScore = 0;
-                }
-    
-                // Update the UI
-                document.getElementById("player1-game").innerText = player1GameScore;
-                document.getElementById("player2-game").innerText = player2GameScore;
-                document.getElementById("player1-sets").innerText = player1Sets;
-                document.getElementById("player2-sets").innerText = player2Sets;
-            }
-        </script>
     </body>
 </html>

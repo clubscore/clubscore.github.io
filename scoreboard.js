@@ -72,46 +72,6 @@ function setGameId() {
     }
 }
 
-setGameId();
-// debugger;
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log(app.name);
-const db = getFirestore(app);
-console.log(db);
-
-function getDataFromDbs()
-{
-    console.log("method was called");
-}
-
-onSnapshot(doc(db, "tennis_score", gameId), 
-    testDoc =>     {
-        if(testDoc.exists())
-        {
-            console.log("document updated");
-            // console.log(testDoc.data());
-            // console.log(testDoc.data()["pointSide1"]);
-            updateScore(testDoc);
-        }
-        else
-        {
-            console.log("game not found - "+gameId);
-        }
-    }
-);
-
-const message = () => {
-    const name = "Jesse";
-    const age = 40;
-    return `${name} is ${age} years old.`;
-  };
-  
-  export default message;
-  export {
-    getDataFromDbs
-  }
-
 function updateScore(testDoc) {
     var pointCell = document.getElementById("pointSide1");
     pointCell.textContent = testDoc.data()[TennisScoreKeys.pointSide1];
@@ -156,3 +116,30 @@ function insertCell(identifier, score) {
     document.getElementById(identifier).insertAdjacentElement('afterend', cell);
 }
 
+function connectDatabase() {
+    const app = initializeApp(firebaseConfig);
+    console.log(app.name);
+    const db = getFirestore(app);
+    console.log(db);
+    return db;
+}
+
+function setScoreUpdates() {
+    onSnapshot(doc(db, "tennis_score", gameId),
+        testDoc => {
+            if (testDoc.exists()) {
+                console.log("document updated");
+                updateScore(testDoc);
+            }
+
+            else {
+                console.log("game not found - " + gameId);
+            }
+        }
+    );
+}
+
+setGameId();
+// Initialize Firebase
+const db = connectDatabase();
+setScoreUpdates();
