@@ -41,8 +41,6 @@ const firebaseConfig = {
     measurementId: "G-49863K56BS"
   };
 
-var gameId;
-
 function getQueryStringParams() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -125,7 +123,7 @@ function connectDatabase() {
 }
 
 function setScoreUpdates() {
-    onSnapshot(doc(db, "tennis_score", gameId),
+    onSnapshot(doc(db, "tennis_score", scoreId),
         testDoc => {
             if (testDoc.exists()) {
                 console.log("document updated");
@@ -139,7 +137,37 @@ function setScoreUpdates() {
     );
 }
 
+async function retrieveGame()
+{
+    // Create a reference to the specific document you want to retrieve
+    const docRef = doc(db, "tennis_games", gameId); // Replace with your collection and document ID
+
+    try {
+        // Fetch the document snapshot
+        const docSnap = await getDoc(docRef);
+
+        // Check if the document exists
+        if (docSnap.exists()) {
+            var doc1=docSnap.data();
+            // Log the document data
+            console.log("Document data:", doc1);
+            scoreId = doc1["si"];
+            console.log("score id -"+scoreId);
+            setScoreUpdates();
+        } else {
+            console.log("No such document!");
+        }
+    } catch (error) {
+        console.error("Error fetching document:", error);
+    }
+}
+
+var gameId;
+var scoreId;
+
 setGameId();
 // Initialize Firebase
 const db = connectDatabase();
-setScoreUpdates();
+retrieveGame();
+
+// setScoreUpdates();
