@@ -1,55 +1,44 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
-    background-color: aqua;
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
+
 h1 {
     color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
 }
+
 .scoreboard {
-    margin: 20px auto;
-    border: 2px solid #3498db;
-    border-radius: 10px;
-    width: 60%;
+    background-color: #ecf0f1;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.scoreboard tbody{
-    font-size: 40;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.player {
-    font-size: 1.2em;
+td {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#playerNameSide1, #playerNameSide2 {
     font-weight: bold;
-    margin: 10px 0;
+    color: #2980b9;
 }
-.scores {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
-}
-.score-box {
-    flex: 1;
-}
-.current-game {
-    font-size: 1.5em;
+
+#pointSide1, #pointSide2 {
+    font-weight: bold;
     color: #e74c3c;
-}
-.sets {
-    font-size: 1em;
-}
-button {
-    padding: 10px 20px;
-    font-size: 1em;
-    margin: 10px;
-    border: none;
-    background-color: #3498db;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #2980b9;
 }
