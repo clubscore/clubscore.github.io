@@ -5,7 +5,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebas
 
 // // Add Firebase products that you want to use
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
-import { getFirestore, getDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
+import { getFirestore, getDoc, doc, onSnapshot, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
 
 class TennisScoreKeys{
     static pointSide1="p1";
@@ -137,6 +137,32 @@ function setScoreUpdates() {
     );
 }
 
+function updatePlayerNames(gameData)
+{
+    var team1Player1 = gameData[TennisGameKeys.side1Player1Name];
+    var team1Player2 = gameData[TennisGameKeys.side1Player2Name];
+    var team2Player1 = gameData[TennisGameKeys.side2Player1Name];
+    var team2Player2 = gameData[TennisGameKeys.side2Player2Name];
+
+    var team1PlayerNames=team1Player1;
+    if(!isEmptyString(team1Player2))
+    {
+        team1PlayerNames=team1Player1+"+"+team1Player2;
+    }
+
+    var team2PlayerNames=team2Player1;
+    if(!isEmptyString(team2Player2))
+    {
+        team2PlayerNames=team2Player1+"+"+team2Player2;
+    }
+
+    var playerNameSide1 = document.getElementById("playerNameSide1");
+    playerNameSide1.textContent = team1PlayerNames;
+
+    var playerNameSide2 = document.getElementById("playerNameSide2");
+    playerNameSide2.textContent = team2PlayerNames;
+}
+
 async function retrieveGame()
 {
     // Create a reference to the specific document you want to retrieve
@@ -151,9 +177,12 @@ async function retrieveGame()
             var doc1=docSnap.data();
             // Log the document data
             console.log("Document data:", doc1);
+            updatePlayerNames(doc1);
             scoreId = doc1["si"];
             console.log("score id -"+scoreId);
-            setScoreUpdates();
+            if (!maxViewersReached) {
+                setScoreUpdates();
+            }
         } else {
             console.log("No such document!");
         }
@@ -187,21 +216,53 @@ function setViewerId()
 
 async function getNumberOfViewers()
 {
-    // Create a reference to the specific document you want to retrieve
-    const docRef = doc(db, "tennis_game_viewers", "gEwRwB5xLgErYMCXkVgQ"); // Replace with your collection and document ID
+    const viewerOfGame = sessionStorage.getItem("viewerCheckForGame");
+    const viewerCountReached = sessionStorage.getItem("viewerCountReached");
+    if(viewerOfGame==gameId)
+    {
+        console.log("skipping viewer count check");
+        maxViewersReached = viewerCountReached;
+        return;
+    }
+
+    console.log("proceeding to check viewer count");
+    const docRef = doc(db, "tennis_game_viewers", gameId);
 
     try {
-        // Fetch the document snapshot
         const docSnap = await getDoc(docRef);
 
-        // Check if the document exists
         if (docSnap.exists()) {
             var doc1=docSnap.data();
-            // Log the document data
             console.log("Document data:", doc1);
-            // scoreId = doc1["si"];
-            // console.log("score id -"+scoreId);
-            // setScoreUpdates();
+            var viewers = doc1.viewers;
+
+            const count = Array.isArray(viewers) ? viewers.length : 0;
+
+            var isExistingViewer = viewers.includes(audienceId);
+            var totalViewers = 0;
+            if (isExistingViewer) {
+                totalViewers = count;
+            }
+            else
+            {
+                totalViewers = count+1;
+                
+                updateDoc(docRef, {
+                    viewers: arrayUnion(audienceId) // Assuming 'users' is the array field
+                });
+            }
+            console.log('number of viewers-'+totalViewers);
+            console.log('current viewer-'+viewers.includes(audienceId));
+            if(totalViewers>viewerCountMax)
+            {
+                maxViewersReached = true;
+                var warning = document.getElementById("warningText");
+                warning.textContent="Max viewers for free plan reached";
+            }
+
+            sessionStorage.setItem("viewerCheckForGame", gameId);
+            sessionStorage.setItem("viewerCountReached", maxViewersReached);
+
         } else {
             console.log("No such document!");
         }
@@ -213,6 +274,8 @@ async function getNumberOfViewers()
 var gameId;
 var scoreId;
 var audienceId;
+var viewerCountMax=6;
+var maxViewersReached=false;
 
 setGameId();
 setViewerId();
