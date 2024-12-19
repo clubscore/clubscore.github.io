@@ -1,11 +1,11 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
 
 // // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
-import { getAnalytics, logEvent } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js'
+import { getAnalytics, logEvent } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js'
 
 // // Add Firebase products that you want to use
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
-import { getFirestore, getDoc, doc, onSnapshot, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js'
+import { getFirestore, getDoc, doc, onSnapshot, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js'
 
 class TennisScoreKeys{
     static pointSide1="p1";
