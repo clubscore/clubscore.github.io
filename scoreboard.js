@@ -1,7 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js'
 
 // // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
-// import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js'
+import { getAnalytics, logEvent } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js'
 
 // // Add Firebase products that you want to use
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
@@ -118,11 +118,13 @@ function connectDatabase() {
     const app = initializeApp(firebaseConfig);
     console.log(app.name);
     const db = getFirestore(app);
+    analytics = getAnalytics(app);
     console.log(db);
     return db;
 }
 
 function setScoreUpdates() {
+    console.log("inside score update");
     onSnapshot(doc(db, "tennis_score", scoreId),
         testDoc => {
             if (testDoc.exists()) {
@@ -180,7 +182,9 @@ async function retrieveGame()
             updatePlayerNames(doc1);
             scoreId = doc1["si"];
             console.log("score id -"+scoreId);
-            if (!maxViewersReached) {
+            console.log("maxViewersReached-" + maxViewersReached);
+            if (maxViewersReached==0) {
+                console.log("calling score update");
                 setScoreUpdates();
             }
         } else {
@@ -255,7 +259,7 @@ async function getNumberOfViewers()
             console.log('current viewer-'+viewers.includes(audienceId));
             if(totalViewers>viewerCountMax)
             {
-                maxViewersReached = true;
+                maxViewersReached = 1;
                 var warning = document.getElementById("warningText");
                 warning.textContent="Max viewers for free plan reached";
             }
@@ -271,11 +275,26 @@ async function getNumberOfViewers()
     }
 }
 
+function logAnalyticsEvent(event_name)
+{
+    if (analyticsDebugMode==1) {
+        logEvent(analytics, event_name, {
+            'debug_mode': true
+        });
+    }
+    else
+    {
+        logEvent(analytics, event_name);
+    }
+}
+
 var gameId;
 var scoreId;
 var audienceId;
+var analytics;
+var analyticsDebugMode=1;
 var viewerCountMax=6;
-var maxViewersReached=false;
+var maxViewersReached=0;
 
 setGameId();
 setViewerId();
@@ -284,3 +303,4 @@ const db = connectDatabase();
 
 getNumberOfViewers();
 retrieveGame();
+logAnalyticsEvent("test_web_event");
