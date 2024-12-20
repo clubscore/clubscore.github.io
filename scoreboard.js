@@ -163,6 +163,9 @@ function updatePlayerNames(gameData)
 
     var playerNameSide2 = document.getElementById("playerNameSide2");
     playerNameSide2.textContent = team2PlayerNames;
+
+    var pageTitle = `${team1PlayerNames} vs ${team2PlayerNames} Tennis Match Scores`;
+    document.title = pageTitle; 
 }
 
 async function retrieveGame()
