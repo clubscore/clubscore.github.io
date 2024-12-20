@@ -85,6 +85,7 @@ function updateScore(testDoc) {
     updateGames(prevGameSide1, "playerNameSide1", gameSide1);
 
     updateGames(prevGameSide2, "playerNameSide2", gameSide2);
+    logAnalyticsEvent("web_view_score_update");
 }
 
 function updateGames(prevGames, identifier, gameCurr)
@@ -228,6 +229,7 @@ async function getNumberOfViewers()
     if(viewerOfGame==gameId)
     {
         console.log("skipping viewer count check");
+        logAnalyticsEvent("web_viewers_check_skipped");
         maxViewersReached = viewerCountReached;
         return;
     }
@@ -257,6 +259,7 @@ async function getNumberOfViewers()
                 updateDoc(docRef, {
                     viewers: arrayUnion(audienceId) // Assuming 'users' is the array field
                 });
+                logAnalyticsEvent("web_viewers_new_added");
             }
             console.log('number of viewers-'+totalViewers);
             console.log('current viewer-'+viewers.includes(audienceId));
@@ -265,6 +268,7 @@ async function getNumberOfViewers()
                 maxViewersReached = 1;
                 var warning = document.getElementById("warningText");
                 warning.textContent="Max viewers for free plan reached";
+                logAnalyticsEvent("web_viewers_max_reached");
             }
 
             sessionStorage.setItem("viewerCheckForGame", gameId);
