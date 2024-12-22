@@ -2,7 +2,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebas
 
 // // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
 import { getAnalytics, logEvent } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js'
-
+import { getRemoteConfig, fetchAndActivate, getNumber } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-remote-config.js";
 // // Add Firebase products that you want to use
 // import { getAuth } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js'
 import { getFirestore, getDoc, doc, onSnapshot, updateDoc, arrayUnion } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js'
@@ -116,12 +116,29 @@ function insertCell(identifier, score) {
 }
 
 function connectDatabase() {
-    const app = initializeApp(firebaseConfig);
-    console.log(app.name);
-    const db = getFirestore(app);
-    analytics = getAnalytics(app);
+    const db = getFirestore(firebaseApp);
     console.log(db);
     return db;
+}
+
+function initFirebaseApp() {
+    const app = initializeApp(firebaseConfig);
+    console.log(app.name);
+    return app;
+}
+
+async function remoteConfig() {
+    const remoteConfig = getRemoteConfig(firebaseApp);
+    remoteConfig.settings.minimumFetchIntervalMillis = 3600000;
+    remoteConfig.defaultConfig = {
+        countOfGamesToBeShown: 10,
+    };
+    await fetchAndActivate(remoteConfig);
+    console.log("Remote config fetched successfully!");
+
+    // Accessing fetched parameters
+    const welcomeMessage = getNumber(remoteConfig, 'countOfGamesToBeShown');
+    console.log("count value -" + welcomeMessage);
 }
 
 function setScoreUpdates() {
@@ -302,12 +319,18 @@ var analytics;
 var analyticsDebugMode=1;
 var viewerCountMax=6;
 var maxViewersReached=0;
+const firebaseApp = initFirebaseApp(firebaseConfig);
 
 setGameId();
 setViewerId();
 // Initialize Firebase
 const db = connectDatabase();
+analytics = getAnalytics(firebaseApp);
+
+// Initialize Remote Config
+await remoteConfig();
 
 getNumberOfViewers();
 retrieveGame();
 logAnalyticsEvent("test_web_event");
+
