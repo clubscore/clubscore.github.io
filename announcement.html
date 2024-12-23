@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
         .announcement {
             background-color: #fff;
@@ -27,6 +28,15 @@
         }
         .announcement p {
             color: #666;
+        }
+        .announcement ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .announcement ul li {
+            margin: 10px 0;
+            text-align: left;
         }
         .announcement-image {
         text-align: center;
@@ -60,12 +70,19 @@
     </script>
 </head>
 <body>
-<div class="announcement-image">
-    <img src="./img/score.png" alt="Tennis Score Board">
-</div>
-<div class="announcement">
-    <h1>Coming Soon: Tennis Score Board!</h1>
-    <p>We are excited to announce the upcoming launch of our new Tennis Score Board Application. This app is designed to help you keep track of your tennis scores effortlessly and <b><u>share live score updates</u></b> with family and friends!</p>
-</div>
+    <div class="announcement-image">
+        <img src="./img/score.png" alt="Tennis Score Board">
+    </div>
+    <div class="announcement">
+        <h1>Coming Soon: Tennis Score Board!</h1>
+        <p>We are excited to announce the upcoming launch of our new Tennis Score Board Application. This app is designed to help you keep track of your tennis scores effortlessly and <b><u>share live score updates</u></b> with family and friends!</p>
+        <p style="text-align: left;">
+            To know more about the updates on this
+            <ul>
+                <li>sign up on <a href="https://app.youform.com/forms/cywf9mqz">this form</a></li>
+                <li>follow us on <a href="https://www.facebook.com/profile.php?id=61570721320008">facebook</a></li>
+            </ul>
+        </p>
+    </div>
 </body>
 </html>
