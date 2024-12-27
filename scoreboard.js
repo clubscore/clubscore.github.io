@@ -381,6 +381,7 @@ function isMobile() {
   } else {
     console.log("Running on desktop/laptop");
     document.getElementById("BrowserIdentifier").textContent="Running on laptop device";
+    document.getElementById("tennisScoreboard").className = "scoreboard";
   }
 
 setInterval(updateScoreUpdateTimeIndicator, 6000);

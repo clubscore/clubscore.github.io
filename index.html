@@ -6,7 +6,7 @@
     </head>
     <body style="flex-direction: column;">
         <!-- <h1>Tennis Match Scoreboard</h1> -->
-        <div class="scoreboard" style="width: 70%; height: 30%;" id="mobileScoreboard">
+        <div class="scoreboardMobile" id="tennisScoreboard">
             <div><p id="warningText"></p></div>
             <table>
             <tbody>
@@ -15,13 +15,6 @@
             </tbody>
             </table>
         </div>
-        <script>
-            if (window.innerWidth <= 768) {
-            document.getElementById('mobileScoreboard').style.display = 'block';
-            } else {
-            document.getElementById('mobileScoreboard').style.display = 'none';
-            }
-        </script>
         <div class="updateTime" id="scoreUpdateTimeIndicator">last update - 3 sec ago</div>
         <div class="updateTime" id="BrowserIdentifier">last update - 3 sec ago</div>
     </body>
