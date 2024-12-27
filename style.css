@@ -42,3 +42,11 @@ td {
     font-weight: bold;
     color: #e74c3c;
 }
+
+.updateTime
+{
+    font-size: 12px;
+    color: #7f8c8d;
+    text-align: right;
+    margin-top: 10px;
+}

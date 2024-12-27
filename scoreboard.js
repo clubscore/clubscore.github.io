@@ -86,6 +86,44 @@ function updateScore(testDoc) {
 
     updateGames(prevGameSide2, "playerNameSide2", gameSide2);
     logAnalyticsEvent("web_view_score_update");
+    setScoreUpdateTime();
+}
+
+function setScoreUpdateTime()
+{
+    scoreUpdateTime = new Date();
+    console.log("score update time -"+scoreUpdateTime);
+    document.getElementById("scoreUpdateTimeIndicator").textContent = "last update - just now";
+}
+
+function updateScoreUpdateTimeIndicator()
+{
+    var timeDiff = new Date() - scoreUpdateTime;
+    var seconds = Math.floor(timeDiff / 1000);
+    var minutes = Math.floor(seconds / 60);
+    var hours = Math.floor(minutes / 60);
+    var days = Math.floor(hours / 24);
+    var timeText = "just now";
+    if(days>0)
+    {
+        timeText = days + " days ago";
+    }
+    else if(hours>0)
+    {
+        timeText = hours + " hours ago";
+    }
+    else if(minutes>0)
+    {
+        timeText = minutes + " minutes ago";
+    }
+    else if(seconds>0)
+    {
+        timeText = seconds + " seconds ago";
+    }
+
+    timeText = "last update - " + timeText;
+
+    document.getElementById("scoreUpdateTimeIndicator").textContent = timeText;
 }
 
 function updateGames(prevGames, identifier, gameCurr)
@@ -312,6 +350,8 @@ function logAnalyticsEvent(event_name)
     }
 }
 
+setInterval(updateScoreUpdateTimeIndicator, 11000);
+
 var gameId;
 var scoreId;
 var audienceId;
@@ -319,6 +359,7 @@ var analytics;
 var analyticsDebugMode=1;
 var viewerCountMax=6;
 var maxViewersReached=0;
+var scoreUpdateTime = new Date(2020, 1, 1);
 const firebaseApp = initFirebaseApp(firebaseConfig);
 
 setGameId();
