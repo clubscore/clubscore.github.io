@@ -181,7 +181,7 @@ async function remoteConfig() {
 
 function setScoreUpdates() {
     console.log("inside score update");
-    onSnapshot(doc(db, "tennis_score", scoreId),
+    unsubscribeHandler = onSnapshot(doc(db, "tennis_score", scoreId),
         testDoc => {
             if (testDoc.exists()) {
                 console.log("document updated");
@@ -350,7 +350,26 @@ function logAnalyticsEvent(event_name)
     }
 }
 
-setInterval(updateScoreUpdateTimeIndicator, 11000);
+// Function to handle visibility change
+function handleVisibilityChange() {
+    let now = new Date();
+    let localTime = now.toLocaleTimeString();
+    // const statusElement = document.getElementById('status');
+    if (document.hidden) {
+        // The page is now in the background
+        // statusElement.textContent = "Page is hidden (background)";
+        console.log(localTime+"-Page has gone to background");
+    } else {
+        // The page is now in the foreground
+        // statusElement.textContent = "Page is visible (foreground)";
+        console.log(localTime+"-Page has come back to foreground");
+    }
+}
+
+// Add event listener for visibility change
+document.addEventListener('visibilitychange', handleVisibilityChange);
+
+setInterval(updateScoreUpdateTimeIndicator, 6000);
 
 var gameId;
 var scoreId;
@@ -359,6 +378,7 @@ var analytics;
 var analyticsDebugMode=1;
 var viewerCountMax=6;
 var maxViewersReached=0;
+var unsubscribeHandler
 var scoreUpdateTime = new Date(2020, 1, 1);
 const firebaseApp = initFirebaseApp(firebaseConfig);
 
