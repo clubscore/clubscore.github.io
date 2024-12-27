@@ -378,6 +378,7 @@ function isMobile() {
   if (isMobile()) {
     console.log("Running on mobile device");
     document.getElementById("BrowserIdentifier").textContent="Running on mobile device";
+    document.getElementById("scoreUpdateTimeIndicator").className = "updateTimeMobile";
   } else {
     console.log("Running on desktop/laptop");
     document.getElementById("BrowserIdentifier").textContent="Running on laptop device";
