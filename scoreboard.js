@@ -369,6 +369,20 @@ function handleVisibilityChange() {
 // Add event listener for visibility change
 document.addEventListener('visibilitychange', handleVisibilityChange);
 
+function isMobile() {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    return isAndroid || isiOS;
+  }
+  
+  if (isMobile()) {
+    console.log("Running on mobile device");
+    document.getElementById("BrowserIdentifier").textContent="Running on mobile device";
+  } else {
+    console.log("Running on desktop/laptop");
+    document.getElementById("BrowserIdentifier").textContent="Running on laptop device";
+  }
+
 setInterval(updateScoreUpdateTimeIndicator, 6000);
 
 var gameId;
