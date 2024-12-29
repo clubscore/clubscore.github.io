@@ -4,22 +4,6 @@
         <title>Tennis Scoreboard</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="mobile_style.css">
-        <style>
-            .progress-bar {
-              width: 100%;
-              height: 20px;
-              background-color: #eee;
-              border-radius: 5px;
-              overflow: hidden;
-            }
-        
-            .progress-bar-fill {
-              height: 100%;
-              background-color: #4CAF50;
-              width: 0%; /* Initially, the bar is empty */
-              transition: width 0.5s ease; /* Smooth transition animation */
-            }
-          </style>
     </head>
     <body style="flex-direction: column;">
         <!-- <h1>Tennis Match Scoreboard</h1> -->
@@ -52,6 +36,26 @@
             </div>
         </div>
     </body>
+    <button class="share-button" onclick="shareScore()">Share</button>
+    <script>
+        function shareScore() {
+            const shareData = {
+                title: 'Tennis Scoreboard',
+                text: 'Check out the latest tennis match scores!',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).then(() => {
+                    console.log('Score shared successfully');
+                }).catch((error) => {
+                    console.error('Error sharing score:', error);
+                });
+            } else {
+                alert('Sharing is not supported in this browser.');
+            }
+        }
+    </script>
     <script>
         // Example: Update progress bar every 1 second
         const progressBar = document.getElementById('progressBarFill1');
