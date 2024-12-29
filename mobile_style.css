@@ -1,0 +1,26 @@
+.scoreboardMobile {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70%; 
+    height: 30%;
+    font-size: 5em;
+}
+
+.updateTimeMobile
+{
+    font-size: 2em;
+    color: #7f8c8d;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.livePollMobile {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    font-size: 1.5em;
+}

@@ -215,10 +215,14 @@ function updatePlayerNames(gameData)
     }
 
     var playerNameSide1 = document.getElementById("playerNameSide1");
+    var pollOption1 = document.getElementById("livePollOption1");
     playerNameSide1.textContent = team1PlayerNames;
+    pollOption1.textContent = team1PlayerNames;
 
     var playerNameSide2 = document.getElementById("playerNameSide2");
+    var pollOption2 = document.getElementById("livePollOption2");
     playerNameSide2.textContent = team2PlayerNames;
+    pollOption2.textContent = team2PlayerNames;
 
     var pageTitle = `${team1PlayerNames} vs ${team2PlayerNames} Tennis Match Scores`;
     document.title = pageTitle; 

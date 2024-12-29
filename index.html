@@ -3,6 +3,23 @@
         <script  type="module" src="/scoreboard.js"></script>
         <title>Tennis Scoreboard</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="mobile_style.css">
+        <style>
+            .progress-bar {
+              width: 100%;
+              height: 20px;
+              background-color: #eee;
+              border-radius: 5px;
+              overflow: hidden;
+            }
+        
+            .progress-bar-fill {
+              height: 100%;
+              background-color: #4CAF50;
+              width: 0%; /* Initially, the bar is empty */
+              transition: width 0.5s ease; /* Smooth transition animation */
+            }
+          </style>
     </head>
     <body style="flex-direction: column;">
         <!-- <h1>Tennis Match Scoreboard</h1> -->
@@ -17,5 +34,38 @@
         </div>
         <div class="updateTime" id="scoreUpdateTimeIndicator">last update - 3 sec ago</div>
         <div class="updateTime" id="BrowserIdentifier">last update - 3 sec ago</div>
+        <div class="livePollMobile" id="livePollDisplay">
+            <div class="livePollQuestion" id="livePollQuestion">Who do you think will win this match?</div>
+            <div class="livePollOptions" id="livePollOptions">
+                <input type="radio" id="livePollOption1" name="livePoll" value="1" onclick="submitVote()">
+                <label for="livePollOption1">Team 1</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progressBarFill1"></div>
+                  </div>
+                <br>
+                <input type="radio" id="livePollOption2" name="livePoll" value="2" onclick="submitVote()">
+                <label for="livePollOption2">Team 2</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progressBarFill2"></div>
+                  </div>
+                <br>
+            </div>
+        </div>
     </body>
+    <script>
+        // Example: Update progress bar every 1 second
+        const progressBar = document.getElementById('progressBarFill1');
+        const progressBar2 = document.getElementById('progressBarFill2');
+        let progress = 0;
+
+        const intervalId = setInterval(() => {
+        if (progress >= 100) {
+            clearInterval(intervalId); 
+        } else {
+            progress += 10; // Increase progress by 10% each second
+            progressBar.style.width = `${progress}%`;
+            progressBar2.style.width = `${progress}%`;
+        }
+        }, 1000); // Update every 1 second
+    </script>
 </html>
