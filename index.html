@@ -4,22 +4,6 @@
         <title>Tennis Scoreboard</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="mobile_style.css">
-        <style>
-            .progress-bar {
-              width: 100%;
-              height: 20px;
-              background-color: #eee;
-              border-radius: 5px;
-              overflow: hidden;
-            }
-        
-            .progress-bar-fill {
-              height: 100%;
-              background-color: #4CAF50;
-              width: 0%; /* Initially, the bar is empty */
-              transition: width 0.5s ease; /* Smooth transition animation */
-            }
-          </style>
     </head>
     <body style="flex-direction: column;">
         <button class="share-button" style="position: absolute; top: 10px; right: 10px;" onclick="shareScore()">Share</button>
@@ -52,6 +36,23 @@
                 <br>
             </div>
         </div>
+        <div class="commentsSection" id="commentsSection">
+            <h3>Comments</h3>
+            <textarea id="commentInput" placeholder="Add your comment here..." rows="4" cols="50"></textarea>
+            <br>
+            <button class="commentButton" onclick="submitComment()">Submit</button>
+            <div id="commentsDisplay"></div>
+        </div>
+        <script>
+            function submitComment() {
+                const commentInput = document.getElementById('commentInput');
+                const commentsDisplay = document.getElementById('commentsDisplay');
+                const newComment = document.createElement('p');
+                newComment.textContent = commentInput.value;
+                commentsDisplay.appendChild(newComment);
+                commentInput.value = ''; // Clear the input field
+            }
+        </script>
     </body>
     <script>
         // Example: Update progress bar every 1 second
