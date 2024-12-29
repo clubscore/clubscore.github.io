@@ -370,6 +370,18 @@ function handleVisibilityChange() {
     }
 }
 
+function updateLookForDeviceType() {
+    if (isMobile()) {
+        console.log("Running on mobile device");
+        document.getElementById("BrowserIdentifier").textContent = "Running on mobile device";
+        document.getElementById("scoreUpdateTimeIndicator").className = "updateTimeMobile";
+    } else {
+        console.log("Running on desktop/laptop");
+        document.getElementById("BrowserIdentifier").textContent = "Running on laptop device";
+        document.getElementById("tennisScoreboard").className = "scoreboard";
+    }
+}
+
 // Add event listener for visibility change
 document.addEventListener('visibilitychange', handleVisibilityChange);
 
@@ -377,17 +389,7 @@ function isMobile() {
     const isAndroid = /Android/i.test(navigator.userAgent);
     const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     return isAndroid || isiOS;
-  }
-  
-  if (isMobile()) {
-    console.log("Running on mobile device");
-    document.getElementById("BrowserIdentifier").textContent="Running on mobile device";
-    document.getElementById("scoreUpdateTimeIndicator").className = "updateTimeMobile";
-  } else {
-    console.log("Running on desktop/laptop");
-    document.getElementById("BrowserIdentifier").textContent="Running on laptop device";
-    document.getElementById("tennisScoreboard").className = "scoreboard";
-  }
+}
 
 setInterval(updateScoreUpdateTimeIndicator, 6000);
 
@@ -401,7 +403,8 @@ var maxViewersReached=0;
 var unsubscribeHandler
 var scoreUpdateTime = new Date(2020, 1, 1);
 const firebaseApp = initFirebaseApp(firebaseConfig);
-
+  
+updateLookForDeviceType();
 setGameId();
 setViewerId();
 // Initialize Firebase
@@ -414,4 +417,5 @@ await remoteConfig();
 getNumberOfViewers();
 retrieveGame();
 logAnalyticsEvent("test_web_event");
+
 
