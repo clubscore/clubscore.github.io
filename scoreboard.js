@@ -391,6 +391,59 @@ function isMobile() {
     return isAndroid || isiOS;
 }
 
+function setCommentUpdates() {
+    console.log("inside score update");
+    unsubscribeHandler = onSnapshot(doc(db, "tennis_game_comments", gameId),
+        testDoc => {
+            if (testDoc.exists()) {
+                console.log("comment doc found");
+                console.log(testDoc.data());
+                addComment(testDoc.data());
+            }
+            else {
+                console.log("game not found - " + gameId);
+            }
+        }
+    );
+}
+
+function addComment(comments) {
+    const commentsDisplay = document.getElementById('commentsDisplay');
+    while (commentsDisplay.firstChild) {
+        commentsDisplay.removeChild(commentsDisplay.firstChild);
+    }
+
+    for (let index = 0; index < comments.comments.length; index++) {
+        const element = comments.comments[index];
+        const newComment = document.createElement('p');
+        newComment.textContent = element.text;
+        commentsDisplay.appendChild(newComment);
+    }
+}
+
+function submitPollOption1()
+{
+    submitPoll(true);
+}
+
+function submitPollOption2()
+{
+    submitPoll(false);
+}
+
+function submitPoll(val)
+{
+    const docRef = doc(db, "tennis_live_votes", gameId);
+    const voteData = {
+        userid: audienceId,
+        voteTeam1: val
+    };
+
+    updateDoc(docRef, {
+        poll: arrayUnion(voteData) // Assuming 'users' is the array field
+    });
+    console.log("submit polled - "+val);
+}
 
 setInterval(updateScoreUpdateTimeIndicator, 6000);
 
@@ -418,12 +471,25 @@ await remoteConfig();
 getNumberOfViewers();
 retrieveGame();
 logAnalyticsEvent("test_web_event");
+setCommentUpdates();
 
-function myFunction() {
-    console.log("Function called from module!");
-    // Do something here
+async function submitCommentFromUser() {
+    console.log("going to update comment");
+    const docRef = doc(db, "tennis_game_comments", gameId);
+    var textField = document.getElementById("commentInput");
+    updateDoc(docRef, {
+        comments: arrayUnion({
+            text: textField.value,
+            time: new Date()
+        }) // Assuming 'users' is the array field
+    });
+
+    textField.value = '';
   }
 
   var comButn = document.getElementById('commentButton1');
-  comButn.addEventListener('click', myFunction);
+  comButn.addEventListener('click', submitCommentFromUser);
+  document.getElementById('livePollOption1').addEventListener('click', submitPollOption1);
+  document.getElementById('livePollOption2').addEventListener('click', submitPollOption2);
+  
   console.log("Function called from modul1e!");

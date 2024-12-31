@@ -23,13 +23,13 @@
         <div class="livePollMobile" id="livePollDisplay">
             <div class="livePollQuestion" id="livePollQuestion">Who do you think will win this match?</div>
             <div class="livePollOptions" id="livePollOptions">
-                <input type="radio" id="livePollOption1" name="livePoll" value="1" onclick="submitVote()">
+                <input type="radio" id="livePollOption1" name="livePoll" value="1">
                 <label for="livePollOption1">Team 1</label>
                 <div class="progress-bar">
                     <div class="progress-bar-fill" id="progressBarFill1"></div>
                   </div>
                 <br>
-                <input type="radio" id="livePollOption2" name="livePoll" value="2" onclick="submitVote()">
+                <input type="radio" id="livePollOption2" name="livePoll" value="2">
                 <label for="livePollOption2">Team 2</label>
                 <div class="progress-bar">
                     <div class="progress-bar-fill" id="progressBarFill2"></div>
@@ -38,11 +38,11 @@
             </div>
         </div>
         <div class="commentsSection" id="commentsSection">
-            <h3>Comments</h3>
+            <h3>Viewer Comments</h3>
+            <div id="commentsDisplay"></div>
             <textarea id="commentInput" placeholder="Add your comment here..." rows="4" cols="50"></textarea>
             <br>
             <button id="commentButton1" class="commentButton" >Submit</button>
-            <div id="commentsDisplay"></div>
         </div>
     </body>
     <script>
