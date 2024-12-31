@@ -391,6 +391,7 @@ function isMobile() {
     return isAndroid || isiOS;
 }
 
+
 setInterval(updateScoreUpdateTimeIndicator, 6000);
 
 var gameId;
@@ -400,7 +401,7 @@ var analytics;
 var analyticsDebugMode=1;
 var viewerCountMax=6;
 var maxViewersReached=0;
-var unsubscribeHandler
+var unsubscribeHandler;
 var scoreUpdateTime = new Date(2020, 1, 1);
 const firebaseApp = initFirebaseApp(firebaseConfig);
   
@@ -418,4 +419,11 @@ getNumberOfViewers();
 retrieveGame();
 logAnalyticsEvent("test_web_event");
 
+function myFunction() {
+    console.log("Function called from module!");
+    // Do something here
+  }
 
+  var comButn = document.getElementById('commentButton1');
+  comButn.addEventListener('click', myFunction);
+  console.log("Function called from modul1e!");

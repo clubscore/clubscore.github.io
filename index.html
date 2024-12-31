@@ -41,19 +41,9 @@
             <h3>Comments</h3>
             <textarea id="commentInput" placeholder="Add your comment here..." rows="4" cols="50"></textarea>
             <br>
-            <button class="commentButton" onclick="submitComment()">Submit</button>
+            <button id="commentButton1" class="commentButton" >Submit</button>
             <div id="commentsDisplay"></div>
         </div>
-        <script>
-            function submitComment() {
-                const commentInput = document.getElementById('commentInput');
-                const commentsDisplay = document.getElementById('commentsDisplay');
-                const newComment = document.createElement('p');
-                newComment.textContent = commentInput.value;
-                commentsDisplay.appendChild(newComment);
-                commentInput.value = ''; // Clear the input field
-            }
-        </script>
     </body>
     <script>
         // Example: Update progress bar every 1 second

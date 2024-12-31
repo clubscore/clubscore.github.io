@@ -16,3 +16,12 @@ function shareScore() {
         alert('Sharing is not supported in this browser.');
     }
 }
+
+function submitComment() {
+    const commentInput = document.getElementById('commentInput');
+    const commentsDisplay = document.getElementById('commentsDisplay');
+    const newComment = document.createElement('p');
+    newComment.textContent = commentInput.value;
+    commentsDisplay.appendChild(newComment);
+    commentInput.value = ''; // Clear the input field
+}
