@@ -382,8 +382,6 @@ function updateLookForDeviceType() {
     }
 }
 
-// Add event listener for visibility change
-document.addEventListener('visibilitychange', handleVisibilityChange);
 
 function isMobile() {
     const isAndroid = /Android/i.test(navigator.userAgent);
@@ -440,9 +438,52 @@ function submitPoll(val)
     };
 
     updateDoc(docRef, {
-        poll: arrayUnion(voteData) // Assuming 'users' is the array field
+        poll: arrayUnion(voteData)
     });
     console.log("submit polled - "+val);
+}
+
+async function submitCommentFromUser() {
+    console.log("going to update comment");
+    const docRef = doc(db, "tennis_game_comments", gameId);
+    var textField = document.getElementById("commentInput");
+    updateDoc(docRef, {
+        comments: arrayUnion({
+            text: textField.value,
+            time: new Date()
+        }) // Assuming 'users' is the array field
+    });
+
+    textField.value = '';
+}
+
+function registerEventListeners()
+{
+    var comButn = document.getElementById('commentButton1');
+    comButn.addEventListener('click', submitCommentFromUser);
+    document.getElementById('livePollOption1').addEventListener('click', submitPollOption1);
+    document.getElementById('livePollOption2').addEventListener('click', submitPollOption2);
+
+    // Add event listener for visibility change
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+}
+
+function updateProgressBar()
+{
+    // Example: Update progress bar every 1 second
+    const progressBar = document.getElementById('progressBarFill1');
+    const progressBar2 = document.getElementById('progressBarFill2');
+    let progress = 0;
+
+    const intervalId = setInterval(() => {
+        if (progress >= 100) {
+            clearInterval(intervalId); 
+        } else {
+            progress += 10; // Increase progress by 10% each second
+            progressBar.style.width = `${progress}%`;
+            progressBar2.style.width = `${progress}%`;
+        }
+    }, 1000); // Update every 1 second
 }
 
 setInterval(updateScoreUpdateTimeIndicator, 6000);
@@ -472,24 +513,5 @@ getNumberOfViewers();
 retrieveGame();
 logAnalyticsEvent("test_web_event");
 setCommentUpdates();
-
-async function submitCommentFromUser() {
-    console.log("going to update comment");
-    const docRef = doc(db, "tennis_game_comments", gameId);
-    var textField = document.getElementById("commentInput");
-    updateDoc(docRef, {
-        comments: arrayUnion({
-            text: textField.value,
-            time: new Date()
-        }) // Assuming 'users' is the array field
-    });
-
-    textField.value = '';
-  }
-
-  var comButn = document.getElementById('commentButton1');
-  comButn.addEventListener('click', submitCommentFromUser);
-  document.getElementById('livePollOption1').addEventListener('click', submitPollOption1);
-  document.getElementById('livePollOption2').addEventListener('click', submitPollOption2);
-  
-  console.log("Function called from modul1e!");
+updateProgressBar();
+registerEventListeners();

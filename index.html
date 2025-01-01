@@ -19,7 +19,7 @@
             </table>
         </div>
         <div class="updateTime" id="scoreUpdateTimeIndicator">last update - 3 sec ago</div>
-        <div class="updateTime" id="BrowserIdentifier">last update - 3 sec ago</div>
+        <div class="updateTime" id="BrowserIdentifier" style="display: none;">last update - 3 sec ago</div>
         <div class="livePollMobile" id="livePollDisplay">
             <div class="livePollQuestion" id="livePollQuestion">Who do you think will win this match?</div>
             <div class="livePollOptions" id="livePollOptions">
@@ -45,20 +45,4 @@
             <button id="commentButton1" class="commentButton" >Submit</button>
         </div>
     </body>
-    <script>
-        // Example: Update progress bar every 1 second
-        const progressBar = document.getElementById('progressBarFill1');
-        const progressBar2 = document.getElementById('progressBarFill2');
-        let progress = 0;
-
-        const intervalId = setInterval(() => {
-        if (progress >= 100) {
-            clearInterval(intervalId); 
-        } else {
-            progress += 10; // Increase progress by 10% each second
-            progressBar.style.width = `${progress}%`;
-            progressBar2.style.width = `${progress}%`;
-        }
-        }, 1000); // Update every 1 second
-    </script>
 </html>
