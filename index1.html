@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClubScoreLive - Live Badminton & Tennis Scores</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: #1a3c34;
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #a3d9b1;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1595437178059-3b4947e0bb43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .hero .cta-button {
+      background-color: #28a745;
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    .hero .cta-button:hover {
+      background-color: #218838;
+    }
+
+    /* Live Scores Section */
+    .live-scores {
+      padding: 50px 20px;
+      text-align: center;
+      background-color: white;
+    }
+
+    .live-scores h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #1a3c34;
+    }
+
+    .live-scores p {
+      font-size: 18px;
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1a3c34;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    footer a {
+      color: #a3d9b1;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#scores">Live Scores</a></li>
+      <li><a href="#clubs">Clubs</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>ClubScoreLive</h1>
+    <p>Track Live Badminton & Tennis Scores for Club-Level Games</p>
+    <a href="#scores" class="cta-button">Track Scores Now</a>
+  </section>
+
+  <!-- Live Scores Preview -->
+  <section class="live-scores" id="scores">
+    <h2>Live Scores Coming Soon</h2>
+    <p>Follow real-time badminton and tennis scores for your local club games. Stay tuned for our live tracking feature!</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 ClubScoreLive. All rights reserved.</p>
+    <p><a href="mailto:contact@clubscorelive.com">contact@clubscorelive.com</a> | Hyderabad, Telangana</p>
+  </footer>
+</body>
+</html>

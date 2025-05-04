@@ -1,48 +1,38 @@
-<html>
-    <head>
-        <script  type="module" src="/scoreboard.js"></script>
-        <script  src="/script.js"></script>
-        <title>Tennis Scoreboard</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="mobile_style.css">
-    </head>
-    <body style="flex-direction: column;">
-        <button class="share-button" style="position: absolute; top: 10px; right: 10px;" onclick="shareScore()">Share</button>
-        <!-- <h1>Tennis Match Scoreboard</h1> -->
-        <div class="scoreboardMobile" id="tennisScoreboard">
-            <div><p id="warningText"></p></div>
-            <table>
-            <tbody>
-            <tr><td id="playerNameSide1">Sanjay</td><td id="pointSide1">--</td></tr>
-            <tr><td id="playerNameSide2">Rushika</td><td id="pointSide2">--</td></tr>
-            </tbody>
-            </table>
-        </div>
-        <div class="updateTime" id="scoreUpdateTimeIndicator">last update - 3 sec ago</div>
-        <div class="updateTime" id="BrowserIdentifier" style="display: none;">last update - 3 sec ago</div>
-        <div class="livePollMobile" id="livePollDisplay">
-            <div class="livePollQuestion" id="livePollQuestion">Who do you think will win this match?</div>
-            <div class="livePollOptions" id="livePollOptions">
-                <input type="radio" id="livePollOption1" name="livePoll" value="1">
-                <label for="livePollOption1">Team 1</label>
-                <div class="progress-bar">
-                    <div class="progress-bar-fill" id="progressBarFill1"></div>
-                  </div>
-                <br>
-                <input type="radio" id="livePollOption2" name="livePoll" value="2">
-                <label for="livePollOption2">Team 2</label>
-                <div class="progress-bar">
-                    <div class="progress-bar-fill" id="progressBarFill2"></div>
-                  </div>
-                <br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Sports Score Tracker</title>
+    <link rel="stylesheet" href="css/homepage.css">
+</head>
+<body>
+    <header>
+        <h1>Live Sports Score Tracker</h1>
+        <p>Stay updated with real-time scores from your favorite sports</p>
+    </header>
+    <div class="container">
+        <h2>Features</h2>
+        <div class="features">
+            <div class="feature">
+                <img src="https://via.placeholder.com/100" alt="Live Updates">
+                <h3>Live Updates</h3>
+                <p>Get real-time scores and updates for ongoing matches.</p>
+            </div>
+            <div class="feature">
+                <img src="https://via.placeholder.com/100" alt="Team Stats">
+                <h3>Team Stats</h3>
+                <p>Access detailed statistics for teams and players.</p>
+            </div>
+            <div class="feature">
+                <img src="https://via.placeholder.com/100" alt="Notifications">
+                <h3>Instant Notifications</h3>
+                <p>Receive alerts for key moments and match results.</p>
             </div>
         </div>
-        <div class="commentsSection" id="commentsSection">
-            <h3>Viewer Comments</h3>
-            <div id="commentsDisplay"></div>
-            <textarea id="commentInput" placeholder="Add your comment here..." rows="4" cols="50"></textarea>
-            <br>
-            <button id="commentButton1" class="commentButton" >Submit</button>
-        </div>
-    </body>
+    </div>
+    <footer>
+        <p>&copy; 2023 Live Sports Score Tracker. All rights reserved.</p>
+    </footer>
+</body>
 </html>

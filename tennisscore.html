@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script  type="module" src="/scoreboard.js"></script>
+        <script  src="/script.js"></script>
+        <title>Tennis Scoreboard</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="mobile_style.css">
+    </head>
+    <body style="flex-direction: column;">
+        <button class="share-button" style="position: absolute; top: 10px; right: 10px;" onclick="shareScore()">Share</button>
+        <!-- <h1>Tennis Match Scoreboard</h1> -->
+        <div class="scoreboardMobile" id="tennisScoreboard">
+            <div><p id="warningText"></p></div>
+            <table>
+            <tbody>
+            <tr><td id="playerNameSide1">Sanjay</td><td id="pointSide1">--</td></tr>
+            <tr><td id="playerNameSide2">Rushika</td><td id="pointSide2">--</td></tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="updateTime" id="scoreUpdateTimeIndicator">last update - 3 sec ago</div>
+        <div class="updateTime" id="BrowserIdentifier" style="display: none;">last update - 3 sec ago</div>
+        <div class="livePollMobile" id="livePollDisplay">
+            <div class="livePollQuestion" id="livePollQuestion">Who do you think will win this match?</div>
+            <div class="livePollOptions" id="livePollOptions">
+                <input type="radio" id="livePollOption1" name="livePoll" value="1">
+                <label for="livePollOption1">Team 1</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progressBarFill1"></div>
+                  </div>
+                <br>
+                <input type="radio" id="livePollOption2" name="livePoll" value="2">
+                <label for="livePollOption2">Team 2</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="progressBarFill2"></div>
+                  </div>
+                <br>
+            </div>
+        </div>
+        <div class="commentsSection" id="commentsSection">
+            <h3>Viewer Comments</h3>
+            <div id="commentsDisplay"></div>
+            <textarea id="commentInput" placeholder="Add your comment here..." rows="4" cols="50"></textarea>
+            <br>
+            <button id="commentButton1" class="commentButton" >Submit</button>
+        </div>
+    </body>
+</html>
