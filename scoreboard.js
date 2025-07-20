@@ -14,8 +14,7 @@ class TennisScoreKeys{
     static gameSide2="g2";
     static setOverallSide1="s1";
     static setOverallSide2="s2";
-    static prevGameSide1="pg1";
-    static prevGameSide2="pg2";
+    static gamesHistory="gh";
     static tieBreakSide1="t1";
     static tieBreakSide2="t2";
     static isTieBreak="itb";
@@ -29,6 +28,14 @@ class TennisGameKeys {
     static scoreId = "si";
     static tennisGameType = "gt";
 }
+
+const tennisPointsMap = new Map([
+  [0, '00'],
+  [1, '15'],
+  [2, '30'],
+  [3, '40'],
+  [4, 'AD'],
+]);
 
 const firebaseConfig = {
     apiKey: "AIzaSyDrzI_OoGe92fYQEFLZhXFlKXcrP_yIoeU",
@@ -70,21 +77,24 @@ function setGameId() {
     }
 }
 
-function updateScore(testDoc) {
+function updateScore(score) {
     var pointCell = document.getElementById("pointSide1");
-    pointCell.textContent = testDoc.data()[TennisScoreKeys.pointSide1];
-    var pointCell = document.getElementById("pointSide2");
-    pointCell.textContent = testDoc.data()[TennisScoreKeys.pointSide2];
-    clearPrevGameScores();
-    var prevGameSide1 = testDoc.data()[TennisScoreKeys.prevGameSide1];
-    var prevGameSide2 = testDoc.data()[TennisScoreKeys.prevGameSide1];
+    var point1 = score[TennisScoreKeys.pointSide1];
+    pointCell.textContent = tennisPointsMap.get(point1);
     
-    var gameSide1 = testDoc.data()[TennisScoreKeys.gameSide1];
-    var gameSide2 = testDoc.data()[TennisScoreKeys.gameSide2];
+    var pointCell = document.getElementById("pointSide2");
+    var point2 = score[TennisScoreKeys.pointSide2];
+    pointCell.textContent = tennisPointsMap.get(point2);
 
-    updateGames(prevGameSide1, "playerNameSide1", gameSide1);
+    clearPrevGameScores();
+    var prevGames = score[TennisScoreKeys.gamesHistory];
+    console.log("length of prevGames - "+prevGames.length);
+    var gameSide1 = score[TennisScoreKeys.gameSide1];
+    var gameSide2 = score[TennisScoreKeys.gameSide2];
 
-    updateGames(prevGameSide2, "playerNameSide2", gameSide2);
+    updateGames(prevGames, "playerNameSide1", gameSide1, true);
+    updateGames(prevGames, "playerNameSide2", gameSide2, false);
+
     logAnalyticsEvent("web_view_score_update");
     setScoreUpdateTime();
 }
@@ -126,12 +136,15 @@ function updateScoreUpdateTimeIndicator()
     document.getElementById("scoreUpdateTimeIndicator").textContent = timeText;
 }
 
-function updateGames(prevGames, identifier, gameCurr)
+function updateGames(prevGames, identifier, gameCurr, isSide1)
 {
     insertCell(identifier, gameCurr);
 
-    for (let i = prevGames.length-1; i>=0; i--) {
-        insertCell(identifier, prevGames[i]);
+    for (let i = Object.keys(prevGames).length-1; i>=0; i--) {
+        var prevGame = prevGames[i];
+        var gameKey = isSide1 ? TennisScoreKeys.gameSide1 : TennisScoreKeys.gameSide2;
+        var gameScore = prevGame[gameKey];
+        insertCell(identifier, gameScore);
     }
 }
 
@@ -182,12 +195,13 @@ async function remoteConfig() {
 function setScoreUpdates() {
     console.log("inside score update");
     unsubscribeHandler = onSnapshot(doc(db, "tennis_score", scoreId),
-        testDoc => {
-            if (testDoc.exists()) {
+        scoreDoc => {
+            if (scoreDoc.exists()) {
                 console.log("document updated");
-                updateScore(testDoc);
+                var score = scoreDoc.data();
+                console.log("tennis score document -", score);
+                updateScore(score);
             }
-
             else {
                 console.log("game not found - " + gameId);
             }
